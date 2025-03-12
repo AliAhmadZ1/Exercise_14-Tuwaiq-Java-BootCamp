@@ -62,7 +62,25 @@ public class NewsArticleController {
         return ResponseEntity.status(400).body(new ApiResponse("cannot delete. not exist"));
     }
 
+    @PutMapping("/publish/{id}")
+    public ResponseEntity publishNews(@PathVariable String id){
+        if (newsAtricleService.publishNews(id)){
+            return ResponseEntity.status(200).body(new ApiResponse("Published Successfully!!"));
+        }
+        return ResponseEntity.status(400).body(new ApiResponse("is already published"));
+    }
 
+    @GetMapping("/get-all-published")
+    public ResponseEntity getAllPublished(){
+        if (newsAtricleService.getAllPublished().isEmpty())
+            return ResponseEntity.status(400).body(new ApiResponse("Empty no article were published!!"));
+        return ResponseEntity.status(200).body(newsAtricleService.getAllPublished());
+    }
 
-
+    @GetMapping("/get-by-category/{category}")
+    public ResponseEntity newsByCategory(@PathVariable String category){
+        if (newsAtricleService.getByCategory(category).isEmpty())
+            return ResponseEntity.status(400).body(new ApiResponse("no news in this category"));
+        return ResponseEntity.status(200).body(newsAtricleService.getByCategory(category));
+    }
 }

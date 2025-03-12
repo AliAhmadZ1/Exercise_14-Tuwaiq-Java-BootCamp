@@ -1,6 +1,8 @@
 package com.example.exercise_14tuwaiqjavabootcamp.Service;
 
+import com.example.exercise_14tuwaiqjavabootcamp.ApiResponse.ApiResponse;
 import com.example.exercise_14tuwaiqjavabootcamp.Model.NewsArticle;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,5 +46,32 @@ public class NewsAtricleService {
         return false;
     }
 
+    public boolean publishNews(String id){
+        for (int index = 0; index < newsArticles.size(); index++) {
+            if (newsArticles.get(index).getId().equals(id)&&!newsArticles.get(index).isPublished()){
+                newsArticles.get(index).setPublished(true);
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public ArrayList<NewsArticle> getAllPublished(){
+        ArrayList<NewsArticle> published= new ArrayList<>();
+        for (NewsArticle n: newsArticles){
+            if (n.isPublished())
+                published.add(n);
+        }
+        return published;
+    }
+
+    public ArrayList<NewsArticle> getByCategory(String category){
+        ArrayList<NewsArticle> articlesByCategory = new ArrayList<>();
+        for (NewsArticle n: newsArticles){
+            if (n.getCategory().equals(category)){
+                articlesByCategory.add(n);
+            }
+        }
+        return articlesByCategory;
+    }
 }
