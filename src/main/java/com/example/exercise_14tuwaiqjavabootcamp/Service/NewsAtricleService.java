@@ -5,6 +5,7 @@ import com.example.exercise_14tuwaiqjavabootcamp.Model.NewsArticle;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
@@ -50,6 +51,7 @@ public class NewsAtricleService {
         for (int index = 0; index < newsArticles.size(); index++) {
             if (newsArticles.get(index).getId().equals(id)&&!newsArticles.get(index).isPublished()){
                 newsArticles.get(index).setPublished(true);
+                newsArticles.get(index).setPublishDate(LocalDate.now());
                 return true;
             }
         }
